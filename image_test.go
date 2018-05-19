@@ -71,6 +71,18 @@ func TestImagePdfToJpeg(t *testing.T) {
 	}
 }
 
+func TestConvertMultipage(t *testing.T) {
+	if VipsMajorVersion >= 8 && VipsMinorVersion > 2 {
+		i := initImage("test2.pdf")
+		buf, err := i.ConvertMultipage(JPEG, 0)
+		if err != nil {
+			t.Errorf("Cannot process the image: %#v", err)
+		}
+
+		Write("testdata/test_convert_multipage.jpg", buf)
+	}
+}
+
 func TestImageSvgToJpeg(t *testing.T) {
 	if VipsMajorVersion >= 8 && VipsMinorVersion > 2 {
 		i := initImage("test.svg")
